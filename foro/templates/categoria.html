@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> {{categoria.nombre}} </title>
+</head>
+<body>
+
+    <a href="{% url 'crear-post' categoria.id %}">Nueva categoria</a>
+    
+    {% for post in posts %}
+        <a href="{% url 'post' post.id %}">{{post.titulo}}</a>
+    {% empty %}
+        <p>Aun no hay posts</p>
+    {% endfor %}
+
+</body>
+</html>

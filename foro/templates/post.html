@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post</title>
+</head>
+<body>
+    
+    <h1> {{post.titulo}} </h1>
+    <h2>Creado por: {{post.autor}} </h2>
+    <p> {{post.contenido}} </p>
+
+    <a href="{% url 'respuesta' post.id %}">Nueva respuesta</a>
+
+    <hr>
+
+    {% for respuesta in respuestas %}
+        <h3> {{respuesta.autor}} </h3>
+        <p> {{respuesta.contenido}} </p>
+    {% empty %}
+        <p>Aun no hay respuestas</p>
+    {% endfor %}
+
+</body>
+</html>
