@@ -2,11 +2,17 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 from .models import *
 from .forms import PostForm, RespuestaForm
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
 
 def index(request):
     categorias = Categoria.objects.all().order_by('nombre')
+    carreras = Carrera.objects.all().order_by('nombre')
     context = {
-        'categorias' : categorias
+        'categorias' : categorias,
+        'carreras' : carreras,
     }
     return render(request,"index.html",context)
 
@@ -22,8 +28,8 @@ def categoria(request,categoria_id):
         raise Http404("No existe la categoria")
     return render(request,"categoria.html",context)
 
-
-def crear_post(request,categoria_id=None):
+@login_required
+def crear_post(request):
     if request.method == 'POST':
         form = PostForm(request.POST,request.FILES)
         if form.is_valid():
@@ -32,10 +38,8 @@ def crear_post(request,categoria_id=None):
         # post.author = request.user
         post.autor = User.objects.get(pk=2) # temporal
         post.save()
-        if categoria_id:
-            return redirect('categoria',categoria_id=categoria_id)
-        else:
-            return redirect('index')
+        post_id = request.GET.get('categ')
+        return redirect('index')
     else:
         form = PostForm()
     return render(request,'crear-post.html',{'form' : form})
@@ -49,6 +53,7 @@ def post(request,post_id):
     }
     return render(request,'post.html',context)
 
+@login_required
 def crear_respuesta(request,post_id):
     if request.method == 'POST':
         form = RespuestaForm(request.POST)
@@ -61,3 +66,41 @@ def crear_respuesta(request,post_id):
     else:
         form = RespuestaForm()
     return render(request,'respuesta.html',{'form' : form})
+
+def buscar_post(request):
+
+    busqueda = request.GET.get('busqueda')
+    categoria_id = request.GET.get('categoria')
+    carrera_id = request.GET.get('carrera')
+
+    queryset = Post.objects.all().order_by('-fecha_creacion')
+
+    if busqueda:
+        queryset = queryset.filter(
+            Q(titulo__icontains=busqueda) | Q(contenido__icontains=busqueda)
+        )
+    
+    if categoria_id:
+        queryset = queryset.filter(categoria_id=categoria_id)
+    
+    if carrera_id:
+        queryset = queryset.filter(carera_id=carrera_id)
+    
+    context = {
+        'posts' : queryset,
+    }
+
+    return render(request,'busqueda.html',context)
+
+
+def registro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'¡Cuenta creada para {username}! Ya puedes iniciar sesión.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'registro.html', {'form': form})

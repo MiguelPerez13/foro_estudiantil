@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> {{categoria.nombre}} </title>
+    <title>Busqueda</title>
 </head>
 <body>
-
-    <a href="{% url 'crear-post' %}">Nuevo post</a>
     
     {% for post in posts %}
         <a href="{% url 'post' post.id %}">{{post.titulo}}</a>
     {% empty %}
         <p>Aun no hay posts</p>
-    {% endfor %}
+    {% endfor %}        
 
 </body>
 </html>

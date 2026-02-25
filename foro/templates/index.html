@@ -6,6 +6,61 @@
     <title>Index</title>
 </head>
 <body>
+
+<form method="GET" action="{% url 'busqueda' %}" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <input type="text" name="q" class="form-control" placeholder="Buscar tarea o examen..." value="{{ values.q }}">
+    </div>
+
+    <div class="col-md-3">
+        <select name="categoria" class="form-select">
+            <option value="">Todas las Materias</option>
+            {% for cat in categorias %}
+                <option value="{{ cat.id }}" {% if values.categoria == cat.id|slugify %}selected{% endif %}>
+                    {{ cat.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select name="carrera" class="form-select">
+            <option value="">Todas las Carreras</option>
+            {% for car in carreras %}
+                <option value="{{ car.id }}" {% if values.carrera == car.id|slugify %}selected{% endif %}>
+                    {{ car.nombre }}
+                </option>
+            {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+    </div>
+</form>
+
+
+<nav class="navbar navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'index' %}">Foro Estudiantil</a>
+        
+        <div>
+            {% if user.is_authenticated %}
+                <span class="text-white me-3">Hola, {{ user.username }}</span>
+                <a href="{% url 'crear-post' %}">Nuevo post</a>
+                
+                <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Salir</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Entrar</a>
+                <a href="{% url 'registro' %}" class="btn btn-primary btn-sm">Registrarse</a>
+            {% endif %}
+        </div>
+    </div>
+</nav>
+
     
     {% for categoria in categorias %}
         <a href="{% url 'categoria' categoria.id %}"> {{categoria.nombre}} </a>
