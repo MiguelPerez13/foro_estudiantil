@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Foro UPSIN{% endblock %}</title>
+</head>
+
+<body>
+
+    <header class="header">
+
+        <a href="{% url 'index' %}" class="header-logo">
+
+            <div class="header-logo">
+                <img src="{% static 'img/logo.png' %}" alt="logo" class="header-logo-icon">
+                <h1 class="header-title">Foro estudiantil</h1>
+            </div>
+        </a>
+            
+        <div class="header-container">
+            <form method="GET" action="{% url 'busqueda' %}" class="searchbar">
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control" placeholder="Buscar tarea o examen..."
+                        value="{{ values.q }}">
+                </div>
+
+                <div class="col-md-3">
+                    <select name="categoria" class="form-select">
+                        <option value="">Todas las Materias</option>
+                        {% for cat in categorias %}
+                        <option value="{{ cat.id }}" {% if values.categoria == cat.id|slugify %}selected{% endif %}>
+                            {{ cat.nombre }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <select name="carrera" class="form-select">
+                        <option value="">Todas las Carreras</option>
+                        {% for car in carreras %}
+                        <option value="{{ car.id }}" {% if values.carrera == car.id|slugify %}selected{% endif %}>
+                            {{ car.nombre }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="header-container">
+            {% if user.is_authenticated %}
+            <span class="text-white me-3">Hola, {{ user.username }}</span>
+            <a href="{% url 'crear-post' %}">Nuevo post</a>
+
+            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger btn-sm">Salir</button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn btn-primary btn-sm">Entrar</a>
+            <a href="{% url 'registro' %}" class="btn btn-primary btn-sm">Registrarse</a>
+            {% endif %}
+        </div>
+
+
+    </header>
+    <nav class="nav">
+        <ul class="nav-list">
+            <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'categorias' %}">Categorias</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'carreras' %}">Carreras</a></li>
+        </ul>
+    </nav>
+
+    <div class="body">
+
+        <main class="main">
+            {% block content %}
+            {% endblock %}
+        </main>
+        
+        <aside class="sidebar">
+            hola
+        </aside>
+    </div>
+    <footer> </footer>
+</body>
+
+</html>

@@ -8,13 +8,21 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
 def index(request):
-    categorias = Categoria.objects.all().order_by('nombre')
-    carreras = Carrera.objects.all().order_by('nombre')
+    posts = Post.objects.all().order_by('fecha_creacion')[:6]
     context = {
-        'categorias' : categorias,
-        'carreras' : carreras,
+        'posts' : posts,
     }
     return render(request,"index.html",context)
+
+def categorias(request):
+    try:
+        categorias = Categoria.objects.all()
+        context = {
+            'categorias' : categorias
+        }
+    except Categoria.DoesNotExist:
+        raise Http404("No existen categorias")
+    return render(request,"categorias.html",context)
 
 def categoria(request,categoria_id):
     try:
@@ -104,3 +112,13 @@ def registro(request):
     else:
         form = UserCreationForm()
     return render(request, 'registro.html', {'form': form})
+
+def carreras(request):
+    try:
+        carreras = Carrera.objects.all()
+        context = {
+            'carreras' : carreras
+        }
+    except Carrera.DoesNotExist:
+        raise Http404("No existen carreras")
+    return render(request,"carreras.html",context)
