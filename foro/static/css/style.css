@@ -232,12 +232,17 @@ input, textarea {
   backdrop-filter: blur(12px);
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .header-container {
   max-width: 1280px;
   margin: 0 auto;
   padding: 0.75rem 1rem;
+}
+
+.header-conteiner-right{
+  margin: auto 20px;
 }
 
 .header-logo {
@@ -298,6 +303,47 @@ input, textarea {
 .sidebar{
     width: 20%;
     padding: 20px;
+}
+
+.sidebar > *{
+  margin-bottom: 30px;
+}
+
+.trending-posts{
+  margin-bottom: 5px;
+}
+
+.trending-title{
+  font-weight: bold;
+  text-decoration: none;
+  color: black;
+}
+
+.trending-title:hover{
+  color: var(--primary);
+}
+
+.trending-stats{
+  font-size: 14px;
+  color: gray;
+}
+
+.enlaces{
+  list-style: none;
+  font-weight: bold;
+}
+
+.enlaces *{
+  margin-bottom: 10px;
+}
+
+.enlaces-item{
+  text-decoration: none;
+  color: var(--primary);
+}
+
+.enlaces-item:hover{
+  text-decoration: underline;
 }
 
 
@@ -663,6 +709,28 @@ input, textarea {
 .searchbar{
     display: flex;
     flex-direction: row;
+}
+
+.searchbar *{
+  margin-right: 5px;
+}
+
+.searchbar-button{
+  margin: auto;
+  width: 100px;
+  height: 30px;
+}
+.searchbar-input{
+  width: 100%;
+}
+
+.searchbar-filters{
+  display: flex;
+  flex-direction: row;
+}
+
+.searchbar-filters *{
+  margin-right: 5px;
 }
 
 .input {

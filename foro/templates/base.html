@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <title>{% block title %}Foro UPSIN{% endblock %}</title>
+    <link rel="icon" href="{% static 'img/logo.png' %}">
 </head>
 
 <body>
@@ -21,41 +22,47 @@
         </a>
             
         <div class="header-container">
+
             <form method="GET" action="{% url 'busqueda' %}" class="searchbar">
-                <div class="col-md-4">
-                    <input type="text" name="q" class="form-control" placeholder="Buscar tarea o examen..."
-                        value="{{ values.q }}">
-                </div>
+                <div class="searchbar-content">
 
-                <div class="col-md-3">
-                    <select name="categoria" class="form-select">
-                        <option value="">Todas las Materias</option>
-                        {% for cat in categorias %}
-                        <option value="{{ cat.id }}" {% if values.categoria == cat.id|slugify %}selected{% endif %}>
-                            {{ cat.nombre }}
-                        </option>
-                        {% endfor %}
-                    </select>
-                </div>
+                    <div >
+                        <input type="text" name="q" placeholder="Buscar tarea o examen..." value="{{ values.q }}" class="searchbar-input">
+                    </div>
+                    
+                    <div class="searchbar-filters">
+                        
+                        <div>
+                            <select name="categoria">
+                                <option value="">Todas las Materias</option>
+                                {% for cat in categorias %}
+                                <option value="{{ cat.id }}" {% if values.categoria == cat.id|slugify %}selected{% endif %}>
+                                    {{ cat.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <select name="carrera">
+                                <option value="">Todas las Carreras</option>
+                                {% for car in carreras %}
+                                <option value="{{ car.id }}" {% if values.carrera == car.id|slugify %}selected{% endif %}>
+                                    {{ car.nombre }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        
+                    </div>
 
-                <div class="col-md-3">
-                    <select name="carrera" class="form-select">
-                        <option value="">Todas las Carreras</option>
-                        {% for car in carreras %}
-                        <option value="{{ car.id }}" {% if values.carrera == car.id|slugify %}selected{% endif %}>
-                            {{ car.nombre }}
-                        </option>
-                        {% endfor %}
-                    </select>
                 </div>
-
-                <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100">Buscar</button>
-                </div>
+                    
+                <button type="submit" class="btn btn-primary searchbar-button">Buscar</button>
             </form>
         </div>
 
-        <div class="header-container">
+        <div class="header-conteiner-right">
             {% if user.is_authenticated %}
             <span class="text-white me-3">Hola, {{ user.username }}</span>
             <a href="{% url 'crear-post' %}">Nuevo post</a>
@@ -88,7 +95,67 @@
         </main>
         
         <aside class="sidebar">
-            hola
+
+            <div class="stats-card">
+                <div class="card-header">
+                    <h3>Comunidad en cifras</h3>
+                </div>
+                <div class="stat-item">
+                    <p>Estudiantes</p>
+                    <p class="stat-value">{{ total_users }} </p>
+                </div>
+                <div class="stat-item">
+                    <p>Discusiones</p>
+                    <p class="stat-value">{{ total_post }}</p>
+                </div>
+                <div class="stat-item">
+                    <p>Actividad hoy</p>
+                    <p class="stat-value">{{ daily_activity }}</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    Trending posts
+                </div>
+                <div class="card-content">
+                    {% for post in trending_posts %}
+                        <div class="trending-posts">
+                            <a class="trending-title" href="{% url 'post' post.id %}">
+                                {{ post.titulo }}
+                            </a>
+                            <p class="trending-stats">
+                                {{ post.num_respuestas }} respuestas
+                            </p>
+                        </div>
+                    {% empty %}
+                    <p>Aun no hay posts disponibles</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <p>Enlaces utiles</p>
+                </div>
+                <div class="card-content">
+                    <ul class="enlaces">
+                        <li>
+                            <a href="" class="enlaces-item">Recursos academicos</a>
+                        </li>
+                        <li>
+                            <a href="" class="enlaces-item">Calendario de eventos</a>
+                        </li>
+                        <li>
+                            <a href="" class="enlaces-item">Reglas de la comunidad</a>
+                        </li>
+                        <li>
+                            <a href="" class="enlaces-item">Centro de ayuda</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </aside>
     </div>
     <footer> </footer>
