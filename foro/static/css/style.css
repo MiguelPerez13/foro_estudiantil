@@ -729,8 +729,13 @@ input, textarea {
   flex-direction: row;
 }
 
-.searchbar-filters *{
+.searchbar-filter-input{
   margin-right: 5px;
+  margin-left: 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--input-background);
+  color: gray;
 }
 
 .input {

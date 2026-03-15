@@ -27,13 +27,13 @@
                 <div class="searchbar-content">
 
                     <div >
-                        <input type="text" name="q" placeholder="Buscar tarea o examen..." value="{{ values.q }}" class="searchbar-input">
+                        <input type="text" name="q" placeholder="Buscar tarea o examen..." value="{{ values.q }}" class="input">
                     </div>
                     
                     <div class="searchbar-filters">
                         
                         <div>
-                            <select name="categoria">
+                            <select name="categoria" class="searchbar-filter-input">
                                 <option value="">Todas las Materias</option>
                                 {% for cat in categorias %}
                                 <option value="{{ cat.id }}" {% if values.categoria == cat.id|slugify %}selected{% endif %}>
@@ -44,7 +44,7 @@
                         </div>
                         
                         <div>
-                            <select name="carrera">
+                            <select name="carrera" class="searchbar-filter-input">
                                 <option value="">Todas las Carreras</option>
                                 {% for car in carreras %}
                                 <option value="{{ car.id }}" {% if values.carrera == car.id|slugify %}selected{% endif %}>
