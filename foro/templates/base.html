@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <title>{% block title %}Foro UPSIN{% endblock %}</title>
+    <title>{% block title %}Foro UPSIN{% endblock %} Foro UPSIN </title>
     <link rel="icon" href="{% static 'img/logo.png' %}">
 </head>
 
@@ -27,7 +27,7 @@
                 <div class="searchbar-content">
 
                     <div >
-                        <input type="text" name="q" placeholder="Buscar tarea o examen..." value="{{ values.q }}" class="input">
+                        <input type="text" name="busqueda" placeholder="Buscar tarea o examen..." value="{{ values.q }}" class="input">
                     </div>
                     
                     <div class="searchbar-filters">
@@ -65,9 +65,9 @@
         <div class="header-conteiner-right">
             {% if user.is_authenticated %}
             <span class="text-white me-3">Hola, {{ user.username }}</span>
-            <a href="{% url 'crear-post' %}">Nuevo post</a>
+            <a href="{% url 'crear-post' %}" class="btn btn-primary btn-sm">Nuevo post</a>
 
-            <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            <form action="{% url 'logout' %}" method="post" style="display:inline;" class="btn btn-primary">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger btn-sm">Salir</button>
             </form>

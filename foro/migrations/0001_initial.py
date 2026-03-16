@@ -38,7 +38,7 @@ class Migration(migrations.Migration):
                 ('fecha_creacion', models.DateTimeField(auto_now_add=True)),
                 ('archivo_adjunto', models.FileField(blank=True, null=True, upload_to='tareas/')),
                 ('autor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('carera', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='foro.carrera')),
+                ('carrera', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='foro.carrera')),
                 ('categoria', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='foro.categoria')),
             ],
         ),

@@ -1,24 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>crear post</title>
-</head>
-<body>
-    
-<div class="container mt-5">
-    <div class="card shadow">
-        <div class="card-header bg-primary text-white">
-            <h3>Publicar nueva tarea o examen</h3>
-        </div>
-        <div class="card-body">
-            <form method="POST" enctype="multipart/form-data">
-                {% csrf_token %} {{ form.as_p }} <button type="submit" class="btn btn-success mt-3">Publicar ahora</button>
-            </form>
-        </div>
+{% extends "base.html" %}
+
+{% block title %}Crear post {% endblock %}
+
+{% block content %}
+
+<h3 class="page-subtitle">Publicar nueva tarea o examen</h3>
+<div class="card">
+    <div class="card-content">
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %} {{ form.as_p }} <button type="submit" class="btn btn-primary btn-sm">Publicar ahora</button>
+        </form>
+        
     </div>
 </div>
 
-</body>
-</html>
+{% endblock %}

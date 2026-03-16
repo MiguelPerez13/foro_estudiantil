@@ -5,23 +5,23 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         # Elegimos qué campos queremos mostrar en el formulario
-        fields = ['titulo', 'contenido', 'categoria', 'carera', 'archivo_adjunto']
+        fields = ['titulo', 'contenido', 'categoria', 'carrera', 'archivo_adjunto']
 
         labels = {
             'titulo': 'Título de la Publicación',
             'categoria': 'Categoria',
-            'carera': 'Carrera Destinada',
+            'carrera': 'Carrera Destinada',
             'contenido': 'Descripción o Dudas',
             'archivo_adjunto': 'Subir Archivo (PDF, imagen, etc.)',
         }
         
         # Opcional: Añadir clases de Bootstrap para que se vea bien
         widgets = {
-            'titulo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Título de la tarea'}),
-            'contenido': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'categoria': forms.Select(attrs={'class': 'form-select'}),
-            'carera': forms.Select(attrs={'class': 'form-select'}),
-            'archivo_adjunto': forms.FileInput(attrs={'class': 'form-control'}),
+            'titulo': forms.TextInput(attrs={'class': 'input', 'placeholder': 'Título de la tarea'}),
+            'contenido': forms.Textarea(attrs={'class': 'textarea', 'rows': 4}),
+            'categoria': forms.Select(attrs={'class': 'searchbar-filter-input'}),
+            'carrera': forms.Select(attrs={'class': 'searchbar-filter-input'}),
+            'archivo_adjunto': forms.FileInput(attrs={'class': 'file-input'}),
         }
 
 class RespuestaForm(forms.ModelForm):
@@ -35,5 +35,5 @@ class RespuestaForm(forms.ModelForm):
         }
 
         widgets = {
-            'contenido': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'contenido': forms.Textarea(attrs={'class': 'textarea', 'rows': 4}),
         }

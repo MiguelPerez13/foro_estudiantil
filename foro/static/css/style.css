@@ -309,6 +309,11 @@ input, textarea {
   margin-bottom: 30px;
 }
 
+.page-subtitle{
+  margin-bottom: 30px;
+  font-size: 30px;
+}
+
 .trending-posts{
   margin-bottom: 5px;
 }
@@ -468,6 +473,21 @@ input, textarea {
   border-top: 1px solid var(--border);
 }
 
+.attachment-section {
+    background: var(--input-background);
+    padding: 1rem;
+    border-radius: var(--radius-md);
+}
+
+.post-image img {
+    cursor: zoom-in;
+    transition: transform 0.2s;
+}
+
+.post-image img:hover {
+    transform: scale(1.01);
+}
+
 /* ========================================
    CATEGORÍAS DEL FORO
    ======================================== */
@@ -475,7 +495,7 @@ input, textarea {
 .category-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.25rem;
+  gap: 1.25rem;  
 }
 
 .category-card {
@@ -487,6 +507,8 @@ input, textarea {
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  text-decoration: none;
+  color: var(--card-foreground);
 }
 
 .category-card::before {
@@ -597,8 +619,9 @@ input, textarea {
 
 .topic-list {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   gap: 1rem;
+  justify-content: flex-start;
 }
 
 .topic-card {
@@ -609,6 +632,8 @@ input, textarea {
   padding: 1.25rem;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 30%;
+  text-decoration: none;
 }
 
 .topic-card:hover {
@@ -646,9 +671,36 @@ input, textarea {
 .topic-title {
   font-size: 1rem;
   font-weight: 700;
-  color: var(--foreground);
+  color: var(--sidebar-foreground);
   margin-bottom: 0.5rem;
   transition: color 0.3s;
+}
+
+.topic-desc {
+  color: gray;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Alinea verticalmente al centro */
+  gap: 0.5rem;         /* Espacio entre el punto y el texto */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: nowrap;   /* Evita que se rompa en varias líneas */
+}
+
+.topic-desc li {
+  display: flex;       /* Convierte cada item en flex para alinear el punto con su texto */
+  align-items: center;
+  white-space: nowrap; /* Evita que el texto de adentro salte de línea */
+}
+
+/* El separador */
+.topic-desc li:not(:first-child)::before {
+  content: "•";
+  margin-right: 0.5rem;
+  font-size: 1.2rem;   /* Ajusta el tamaño del punto si se ve muy pequeño o grande */
+  line-height: 0;      /* Crucial: evita que el punto afecte la altura de la línea */
+  color: #888;
 }
 
 .topic-card:hover .topic-title {
@@ -773,6 +825,51 @@ input, textarea {
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
 }
+
+/* Contenedor del input file */
+.file-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* El input real lo ocultamos pero que siga siendo funcional */
+.file-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px dashed var(--border); /* El borde punteado queda muy bien para archivos */
+  border-radius: var(--radius-md);
+  background: var(--input-background);
+  color: var(--foreground);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  margin-bottom: 1rem;
+}
+
+/* Efecto Hover para que el usuario sepa que puede soltar algo ahí */
+.file-input:hover {
+  border-color: var(--primary);
+  background: rgba(37, 99, 235, 0.05);
+}
+
+/* Estilo para el botón que aparece dentro del input (en navegadores modernos) */
+.file-input::-webkit-file-upload-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-md);
+  margin-right: 1rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.2s;
+}
+
+.file-input::-webkit-file-upload-button:hover {
+  background: #1d4ed8; /* Un azul más oscuro */
+}
+
 
 /* ========================================
    BADGES
@@ -962,6 +1059,7 @@ input, textarea {
 .mb-3 { margin-bottom: 0.75rem; }
 .mb-4 { margin-bottom: 1rem; }
 .mb-6 { margin-bottom: 1.5rem; }
+.mb-30{margin-bottom: 30px;}
 
 .p-2 { padding: 0.5rem; }
 .p-3 { padding: 0.75rem; }

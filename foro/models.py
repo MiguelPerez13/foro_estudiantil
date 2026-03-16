@@ -22,7 +22,7 @@ class Post(models.Model):
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     autor = models.ForeignKey(User, on_delete=models.CASCADE)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    carera = models.ForeignKey(Carrera,on_delete=models.CASCADE)
+    carrera = models.ForeignKey(Carrera,on_delete=models.CASCADE)
     archivo_adjunto = models.FileField(upload_to='tareas/', blank=True, null=True)
 
     def __str__(self):

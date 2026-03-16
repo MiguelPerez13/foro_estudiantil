@@ -2,11 +2,36 @@
 
 {% block content %}
 
-<h2>Recientes</h2>
+{% if page_title %}
+    {% block title %} {{page_title}}{% endblock %}
+{% endif %}
 
-    {% for post in posts %}
-        <a href="{% url 'post' post.id %}"> {{post.nombre}} </a>
-    {% empty %}
+<h2 class="page-subtitle">{{section}}</h2>
+{% if subtitle %}
+    <p>Explora las diferentes secciones del foro para encontrar lo que necesitas</p>
+{% endif %}
+
+    <div class="topic-list">
+        {% for post in posts %}
+        <a class="topic-card" href="{% url 'post' post.id %}">
+            <p class="topic-title"> {{post.titulo}} </p>
+            <div>
+                <ul class="topic-desc">
+                    <li>
+                        <p> {{post.autor}}</p>        
+                    </li>
+                    <li>
+                        <p> {{post.categoria}} </p>
+                    </li>
+                    <li>
+                        <p> {{post.carrera}} </p>
+                    </li>
+                </ul>
+            </div>
+            <p class="topic-desc"> {{post.num_respuestas}} respuestas </p>
+        </a>
+        {% empty %}
         <p>Aun no hay posts disponibles</p>
-    {% endfor %}
+        {% endfor %}
+    </div>
 {% endblock %}

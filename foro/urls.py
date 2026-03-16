@@ -4,9 +4,11 @@ from . import views
 
 urlpatterns = [
     path("",views.index,name="index"),
+    path("index/",views.index,name="index"),
     path("categoria/<int:categoria_id>",views.categoria,name="categoria"),
     path("categorias/",views.categorias,name="categorias"),
     path("carreras/",views.carreras,name="carreras"),
+    path("carrera/<int:carrera_id>",views.carrera,name="carrera"),
     path("post/crear/",views.crear_post,name="crear-post"),
     path("post/<int:post_id>",views.post,name="post"),
     path("post/respuesta/<int:post_id>",views.crear_respuesta,name="respuesta"),

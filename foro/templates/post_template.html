@@ -1,0 +1,26 @@
+<div class="card mb-6">
+    <div class="card-header">
+        <h2> {{post.titulo}} </h2>
+    </div>
+
+    <div class="card-content">
+    <h2>Creado por: {{ post.autor }} </h2>
+    <p> {{ post.contenido }} </p>
+
+    {% if post.archivo_adjunto %}
+        <div class="attachment-section mt-4" style="border-top: 1px solid var(--border); padding-top: 1rem;">
+            <p><strong>Archivo adjunto:</strong></p>
+            
+            {% if post.archivo_adjunto.url|lower|slice:"-4:" == ".jpg" or post.archivo_adjunto.url|lower|slice:"-4:" == ".png" or post.archivo_adjunto.url|lower|slice:"-5:" == ".webp" %}
+                <div class="post-image">
+                    <img src="{{ post.archivo_adjunto.url }}" alt="Adjunto" style="max-width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                </div>
+            {% else %}
+                <a href="{{ post.archivo_adjunto.url }}" class="btn btn-secondary" download>
+                    <i class="fas fa-download"></i> Descargar {{ post.archivo_adjunto.name|cut:"posts/" }}
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
+</div>

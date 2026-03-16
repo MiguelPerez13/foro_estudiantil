@@ -1,42 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login</title>
-</head>
-<body>
-    <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h3 class="text-center mb-4">Iniciar Sesión</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Usuario</label>
-                            {{ form.username }}
-                        </div>
-                        
-                        <div class="mb-3">
-                            <label class="form-label">Contraseña</label>
-                            {{ form.password }}
-                        </div>
-                        
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-primary">Entrar</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<div class="card">
+
+    <div class="card-header">
+        <h2>Iniciar Sesión</h2>
+    </div>
+    {% for error in field.errors %}
+        <div class="text-danger small">{{ error }}</div>
+    {% endfor %}
+    <div class="card-content">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="mb-3">
+                <label class="form-label">Usuario</label>
+                {{ form.username }}
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label">Contraseña</label>
+                {{ form.password }}
+            </div>
+            
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-sm">Entrar</button>
+            </div>
+            <small>¿Aun no tienes cuenta? <a href="{% url 'registro' %}">Registrate aquí</a></small>
+        </form>
+    </div>
+    
+</div>
 <script>
-    document.querySelectorAll('input').forEach(input => input.classList.add('form-control'));
+    document.querySelectorAll('input').forEach(input => input.classList.add('input'));
 </script>
-</body>
-</html>
+
+{% endblock %}

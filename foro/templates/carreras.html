@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Carreras Foro UPSIN {% endblock %}
+
+{% block content %}
+    <h2 class="page-subtitle">Lista de Carreras</h2>
+
+    <div class="category-grid">
+        {% for carrera in carreras %}
+            <a class="category-card" href="{% url 'carrera' carrera.id %}">
+                <h3>{{carrera.nombre}}</h3>
+                <p>{{carrera.descripcion}}</p>
+                <p>{{carrera.num_post}} Posts</p>
+            </a>
+        {% empty %}
+            <p>Aun no hay Carreras</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %} Categorias Foro UPSIN {% endblock %}
+
+{% block content %}
+    <h2 class="page-subtitle">Lista de categorias</h2>
+
+    <div class="category-grid">
+        {% for cat in categorias %}
+            <a class="category-card" href="{% url 'categoria' cat.id %}">
+                <h3>{{cat.nombre}}</h3>
+                <p>{{cat.descripcion}}</p>
+                <p>{{cat.num_post}} Posts</p>
+            </a>
+        {% empty %}
+            <p>Aun no hay categorias</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

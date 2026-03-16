@@ -1,51 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro</title>
-</head>
-<body>
-    <div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-5">
-            <div class="card shadow">
-                <div class="card-body">
-                    <h3 class="text-center mb-4">Registro de Estudiante</h3>
-                    <form method="post">
-                        {% csrf_token %}
-                        
-                        {% for field in form %}
-                            <div class="mb-3">
-                                <label class="form-label">{{ field.label }}</label>
-                                {{ field }}
-                                {% if field.help_text %}
-                                    <div class="form-text text-muted" style="font-size: 0.8em;">
-                                        {{ field.help_text }}
-                                    </div>
-                                {% endif %}
-                                {% for error in field.errors %}
-                                    <div class="text-danger small">{{ error }}</div>
-                                {% endfor %}
-                            </div>
-                        {% endfor %}
-                        
-                        <div class="d-grid">
-                            <button type="submit" class="btn btn-success">Crear cuenta</button>
-                        </div>
-                    </form>
-                    <hr>
-                    <div class="text-center">
-                        <small>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></small>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+{% extends "base.html" %}
 
+{% block title %}Login{% endblock %}
+
+{% block content %}
+
+
+<div class="card">
+
+    <div class="card-header">
+        <h2>Registrarse</h2>
+    </div>
+    <div class="card-content">
+        <form method="post">
+            {% csrf_token %}
+
+            {% for field in form %}
+            <div class="mb-3">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                <div class="form-text text-muted" style="font-size: 0.8em;">
+                    {{ field.help_text }}
+                </div>
+                {% endif %}
+                {% for error in field.errors %}
+                <div class="text-danger small">{{ error }}</div>
+                {% endfor %}
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary btn-sm">Crear cuenta</button>
+        </form>
+
+    </div>
+    <small>¿Ya tienes cuenta? <a href="{% url 'login' %}">Inicia sesión aquí</a></small>
+
+</div>
 <script>
-    document.querySelectorAll('input').forEach(input => input.classList.add('form-control'));
+    document.querySelectorAll('input').forEach(input => input.classList.add('input'));
 </script>
-</body>
-</html>
+
+{% endblock %}
